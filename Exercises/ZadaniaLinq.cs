@@ -49,6 +49,9 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie03_StudenciPosortowani()
     {
+        return DaneUczelni.Studenci
+            .OrderBy(s=> s.Nazwisko).ThenBy(s => s.Imie)
+            .Select(s => $"{s.NumerIndeksu} | {s.Imie} | {s.Nazwisko}");
         throw Niezaimplementowano(nameof(Zadanie03_StudenciPosortowani));
     }
 
@@ -64,6 +67,14 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie04_PierwszyPrzedmiotAnalityczny()
     {
+        var top1 = DaneUczelni.Przedmioty
+            .Where(s => s.Kategoria == "Analytics")
+            .Take(1)
+            .Select(s => $"{s.Nazwa} | {s.DataStartu}");
+
+        if (!top1.Any())
+            return new List<string> {"brak"};
+
         throw Niezaimplementowano(nameof(Zadanie04_PierwszyPrzedmiotAnalityczny));
     }
 
